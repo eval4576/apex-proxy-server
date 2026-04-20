@@ -6,6 +6,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Health check
+app.get('/', (req, res) => {
+  res.json({ status: 'APEX Proxy running' });
+});
+
+// Proxy endpoint
 app.post('/', async (req, res) => {
   try {
     const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -25,4 +31,4 @@ app.post('/', async (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Proxy running on port ${PORT}`));
+app.listen(PORT, () => console.log(`APEX Proxy running on port ${PORT}`));
